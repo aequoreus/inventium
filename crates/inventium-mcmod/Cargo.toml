@@ -1,0 +1,11 @@
+[package]
+name = "inventium-mcmod"
+version = "0.1.0"
+edition = "2024"
+description = "Rust wrapper for Minecraft 3rd-party mod platform API"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/aequoreus/inventium"
+authors = ["Oganesson897 <oganesson897@gmail.com>"]
+
+[dependencies]
+inventium-core = { path = "../inventium-core" }
