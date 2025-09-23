@@ -38,4 +38,8 @@ impl Request {
     pub fn get(&self, url: &str) -> Builder {
         IsaRequest::get(url)
     }
+
+    pub fn req(&self, req: Builder) -> Response<Body> {
+        self.client.send(req.body(Body::empty()).unwrap()).unwrap()
+    }
 }
