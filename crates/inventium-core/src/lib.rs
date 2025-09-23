@@ -16,6 +16,10 @@ impl UrlBuilder {
         self.url.push_str(&format!("{}={}&", key, value));
         self
     }
+
+    pub fn as_str(&self) -> &str {
+        &self.url
+    }
 }
 
 pub struct Request {
