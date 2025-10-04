@@ -1,3 +1,3 @@
 pub mod serialize;
 pub mod curse;
-mod param;
+pub mod param;

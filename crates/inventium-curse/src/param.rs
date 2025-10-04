@@ -20,8 +20,30 @@ pub struct SearchModsParam {
 }
 
 impl SearchModsParam {
+    pub fn new() -> Self {
+        Self {
+            class_id: None,
+            category_id: None,
+            category_ids: None,
+            game_version: None,
+            game_versions: None,
+            search_filter: None,
+            sort_field: None,
+            sort_order: None,
+            mod_loader_type: None,
+            mod_loader_types: None,
+            game_version_type_id: None,
+            author_id: None,
+            primary_author_id: None,
+            slug: None,
+            index: None,
+            page_size: None
+        }
+    }
+
     pub fn build(&self, builder: UrlBuilder) -> UrlBuilder {
         let mut b = builder;
+        b = b.add_param("gameId", "432");
         if let Some(class_id) = self.class_id {
             b = b.add_param("classId", &class_id.to_string());
         }
@@ -74,6 +96,77 @@ impl SearchModsParam {
         }
         b
     }
+}
+
+pub struct GetDescParam {
+    pub raw: Option<bool>,
+    pub stripped: Option<bool>,
+    pub markup: Option<bool>
+}
+
+impl GetDescParam {
+    pub fn new() -> Self {
+        Self {
+            raw: None,
+            stripped: None,
+            markup: None
+        }
+    }
+
+    pub fn build(&self, builder: UrlBuilder) -> UrlBuilder {
+        let mut b = builder;
+        if let Some(raw) = self.raw {
+            b = b.add_param("raw", &raw.to_string());
+        }
+        if let Some(stripped) = self.stripped {
+            b = b.add_param("stripped", &stripped.to_string());
+        }
+        if let Some(markup) = self.markup {
+            b = b.add_param("markup", &markup.to_string());
+        }
+        b
+    }
+}
+
+pub struct GetFilesParam {
+    pub game_version: Option<String>,
+    pub mod_loader_type: Option<ModLoaderType>,
+    pub game_version_type_id: Option<i32>,
+    pub index: Option<i32>,
+    pub page_size: Option<i32>
+}
+
+impl GetFilesParam {
+    pub fn new() -> Self {
+        Self {
+            game_version: None,
+            mod_loader_type: None,
+            game_version_type_id: None,
+            index: None,
+            page_size: None
+        }
+    }
+
+    pub fn build(&self, builder: UrlBuilder) -> UrlBuilder {
+        let mut b = builder;
+        if let Some(game_version) = &self.game_version {
+            b = b.add_param("gameVersion", game_version);
+        }
+        if let Some(mod_loader_type) = self.mod_loader_type {
+            b = b.add_param("modLoaderType", &mod_loader_type.id().to_string());
+        }
+        if let Some(game_version_type_id) = self.game_version_type_id {
+            b = b.add_param("gameVersionTypeId", &game_version_type_id.to_string());
+        }
+        if let Some(index) = self.index {
+            b = b.add_param("index", &index.to_string());
+        }
+        if let Some(page_size) = self.page_size {
+            b = b.add_param("pageSize", &page_size.to_string());
+        }
+        b
+    }
+
 }
 
 #[derive(Debug, Clone, Copy)]
