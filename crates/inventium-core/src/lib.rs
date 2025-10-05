@@ -1,14 +1,16 @@
-use isahc::{Body, HttpClient, HttpClientBuilder, Response, Request as IsaRequest};
+use anyhow::Result;
+use isahc::http::header::{ACCEPT, CONTENT_TYPE, USER_AGENT};
 use isahc::http::request::Builder;
+use isahc::{Body, HttpClient, Request as IsaRequest, Response};
 
 pub struct UrlBuilder {
-    pub url: String
+    pub url: String,
 }
 
 impl UrlBuilder {
     pub fn new(base_url: &str) -> Self {
         Self {
-            url: base_url.to_string() + "?"
+            url: base_url.to_string() + "?",
         }
     }
 
@@ -23,27 +25,27 @@ impl UrlBuilder {
 }
 
 pub struct Request {
-    pub client: HttpClient
+    pub client: HttpClient,
 }
 
 impl Request {
-    pub fn new(agent: &str) -> Self {
+    pub fn new(agent: &str) -> Result<Self> {
         let mut builder = isahc::HttpClient::builder();
 
-        builder = builder.default_header("Content-Type", "application/json");
-        builder = builder.default_header("Accept", "application/json");
-        builder = builder.default_header("User-Agent", agent);
+        builder = builder.default_header(CONTENT_TYPE, "application/json");
+        builder = builder.default_header(ACCEPT, "application/json");
+        builder = builder.default_header(USER_AGENT, agent);
 
-        Self {
-            client: builder.build().unwrap()
-        }
+        Ok(Self {
+            client: builder.build()?,
+        })
     }
 
     pub fn get(&self, url: &str) -> Builder {
         IsaRequest::get(url)
     }
 
-    pub fn req(&self, req: Builder) -> Response<Body> {
-        self.client.send(req.body(Body::empty()).unwrap()).unwrap()
+    pub fn req(&self, req: Builder) -> Result<Response<Body>> {
+        Ok(self.client.send(req.body(Body::empty())?)?)
     }
 }
