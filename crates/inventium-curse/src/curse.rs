@@ -5,10 +5,8 @@ use crate::serialize::{
 };
 use anyhow::Result;
 use inventium_core::{Request, UrlBuilder};
-use isahc::http::StatusCode;
 use isahc::http::request::Builder;
-use isahc::{Body, ReadResponseExt, Response};
-use serde::Deserialize;
+use isahc::ReadResponseExt;
 
 pub struct Curse {
     base_url: String,
