@@ -9,3 +9,10 @@ authors = ["Oganesson897 <oganesson897@gmail.com>"]
 
 [dependencies]
 inventium-core = { path = "../inventium-core" }
+serde = "1.0.226"
+serde_derive = "1.0.226"
+serde_json = "1.0.145"
+isahc = "1.7.2"
+strum = { version = "0.27.2", features = ["derive"] }
+time = {version = "0.3.44", features = ["serde-well-known"] }
+anyhow = {workspace = true}
