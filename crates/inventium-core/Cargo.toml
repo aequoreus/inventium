@@ -9,3 +9,4 @@ authors = ["Oganesson897 <oganesson897@gmail.com>"]
 
 [dependencies]
 isahc = "1.7.2"
+anyhow = { workspace = true }

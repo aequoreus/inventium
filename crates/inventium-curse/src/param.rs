@@ -16,7 +16,7 @@ pub struct SearchModsParam {
     pub primary_author_id: Option<i32>,
     pub slug: Option<String>,
     pub index: Option<i32>,
-    pub page_size: Option<i32>
+    pub page_size: Option<i32>,
 }
 
 impl SearchModsParam {
@@ -37,7 +37,7 @@ impl SearchModsParam {
             primary_author_id: None,
             slug: None,
             index: None,
-            page_size: None
+            page_size: None,
         }
     }
 
@@ -73,7 +73,10 @@ impl SearchModsParam {
             b = b.add_param("modLoaderType", &mod_loader_type.id().to_string());
         }
         if let Some(mod_loader_types) = &self.mod_loader_types {
-            let ids: Vec<String> = mod_loader_types.iter().map(|m| m.id().to_string()).collect();
+            let ids: Vec<String> = mod_loader_types
+                .iter()
+                .map(|m| m.id().to_string())
+                .collect();
             b = b.add_param("modLoaderTypes", &ids.join(","));
         }
         if let Some(game_version_type_id) = self.game_version_type_id {
@@ -101,7 +104,7 @@ impl SearchModsParam {
 pub struct GetDescParam {
     pub raw: Option<bool>,
     pub stripped: Option<bool>,
-    pub markup: Option<bool>
+    pub markup: Option<bool>,
 }
 
 impl GetDescParam {
@@ -109,7 +112,7 @@ impl GetDescParam {
         Self {
             raw: None,
             stripped: None,
-            markup: None
+            markup: None,
         }
     }
 
@@ -133,7 +136,7 @@ pub struct GetFilesParam {
     pub mod_loader_type: Option<ModLoaderType>,
     pub game_version_type_id: Option<i32>,
     pub index: Option<i32>,
-    pub page_size: Option<i32>
+    pub page_size: Option<i32>,
 }
 
 impl GetFilesParam {
@@ -143,7 +146,7 @@ impl GetFilesParam {
             mod_loader_type: None,
             game_version_type_id: None,
             index: None,
-            page_size: None
+            page_size: None,
         }
     }
 
@@ -166,7 +169,6 @@ impl GetFilesParam {
         }
         b
     }
-
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -175,7 +177,7 @@ pub enum Category {
     Mods = 6,
     Modpacks = 4471,
     ResourcePacks = 12,
-    Shaders = 6552
+    Shaders = 6552,
 }
 
 impl Category {
@@ -197,7 +199,7 @@ pub enum ModSearchSortField {
     EarlyAccess = 9,
     FeaturedReleased = 10,
     ReleasedDate = 11,
-    Rating = 12
+    Rating = 12,
 }
 
 impl ModSearchSortField {
@@ -214,7 +216,7 @@ pub enum ModLoaderType {
     LiteLoader = 3,
     Fabric = 4,
     Quilt = 5,
-    NeoForge = 6
+    NeoForge = 6,
 }
 
 impl ModLoaderType {
